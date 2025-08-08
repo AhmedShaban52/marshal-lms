@@ -5,7 +5,7 @@ import {
   courseCategories,
   courseLevels,
   courseSchema,
-  courseSchemaType,
+  CourseSchemaType,
   courseStatus,
 } from "@/lib/zodSchemas";
 import { Loader2, PlusIcon, SparkleIcon } from "lucide-react";
@@ -47,7 +47,7 @@ export function EditCourseForm({ data } : iAppProps) {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm<courseSchemaType>({
+  const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
       title: data.title,
@@ -56,14 +56,14 @@ export function EditCourseForm({ data } : iAppProps) {
       price: data.price,
       duration: data.duration,
       level:  data.level,
-      category: data.category as courseSchemaType['category'],
+      category: data.category as CourseSchemaType['category'],
       status: data.status,
       slug: data.slug,
       smallDescription: data.smallDescription,
     },
   });
 
-  function onSubmit(values: courseSchemaType) {
+  function onSubmit(values: CourseSchemaType) {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(editCourse(values, data.id));
 

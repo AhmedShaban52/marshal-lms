@@ -4,7 +4,7 @@ import { requireAdmin } from "@/app/data/admin/require-admin";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
-import { courseSchema, courseSchemaType } from "@/lib/zodSchemas";
+import { courseSchema, CourseSchemaType } from "@/lib/zodSchemas";
 import { request } from "@arcjet/next";
 
 const aj = arcjet
@@ -23,7 +23,7 @@ const aj = arcjet
   );
 
 export async function CreateCourse(
-  data: courseSchemaType
+  data: CourseSchemaType
 ): Promise<ApiResponse> {
   const session = await requireAdmin();
   try {

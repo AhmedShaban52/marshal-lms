@@ -12,7 +12,7 @@ import {
   courseCategories,
   courseLevels,
   courseSchema,
-  courseSchemaType,
+  CourseSchemaType,
   courseStatus,
 } from "@/lib/zodSchemas";
 import { ArrowLeft, Loader2, PlusIcon, SparkleIcon } from "lucide-react";
@@ -49,7 +49,7 @@ export default function CourseCreationPage() {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
   // 1. Define your form.
-  const form = useForm<courseSchemaType>({
+  const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
       title: "",
@@ -66,7 +66,7 @@ export default function CourseCreationPage() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: courseSchemaType) {
+  function onSubmit(values: CourseSchemaType) {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(CreateCourse(values));
 
