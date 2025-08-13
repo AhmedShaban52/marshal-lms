@@ -1,18 +1,10 @@
 import { requireAdmin } from "@/app/data/admin/require-admin";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
-import { auth } from "@/lib/auth";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { S3 } from "@/lib/S3Client";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 const aj = arcjet
-  .withRule(
-    detectBot({
-      mode: "LIVE",
-      allow: [],
-    })
-  )
   .withRule(
     fixedWindow({
       mode: "LIVE",
@@ -22,15 +14,15 @@ const aj = arcjet
   );
 
 export async function DELETE(request: Request) {
-  // const session = await requireAdmin()
+  const session = await requireAdmin()
   try {
-    // const decision = await aj.protect(request, {
-    //   fingerprint: session?.user?.id as string,
-    // });
+    const decision = await aj.protect(request, {
+      fingerprint: session?.user?.id as string,
+    });
 
-    // if (decision.isDenied()) {
-    //   return NextResponse.json({ error: "dudde not good" }, { status: 429 });
-    // }
+    if (decision.isDenied()) {
+      return NextResponse.json({ error: "dudde not good" }, { status: 429 });
+    }
 
     const body = await request.json();
 

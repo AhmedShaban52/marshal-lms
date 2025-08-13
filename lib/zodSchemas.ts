@@ -29,12 +29,31 @@ export const courseSchema = z.object({
 
   fileKey: z.string().min(1, { message: "File is required" }),
 
-  price: z.number().min(1, { message: "Price must be positive number" }),
+  // price: z.number().min(1, { message: "Price must be positive number" }),
 
-  duration: z
-    .number()
-    .min(1, { message: "Duration must be at least 1 hour" })
-    .max(500, { message: "Duration must be at most 500 hours" }),
+  // duration: z
+  //   .number()
+  //   .min(1, { message: "Duration must be at least 1 hour" })
+  //   .max(500, { message: "Duration must be at most 500 hours" }),
+
+  price: z.preprocess(
+    (val) => {
+      if (typeof val === "string") return parseFloat(val);
+      return val;
+    },
+    z.number().min(1, { message: "Price must be positive number" })
+  ) as unknown as z.ZodNumber,
+
+  duration: z.preprocess(
+    (val) => {
+      if (typeof val === "string") return parseFloat(val);
+      return val;
+    },
+    z
+      .number()
+      .min(1, { message: "Duration must be at least 1 hour" })
+      .max(500, { message: "Duration must be at most 500 hours" })
+  ) as unknown as z.ZodNumber,
 
   level: z.enum(courseLevels, { message: "level is required" }),
 
