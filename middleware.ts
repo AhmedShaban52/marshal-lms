@@ -11,8 +11,9 @@ const aj = arcjet({
       // Block all bots except the following
       allow: [
         "CATEGORY:SEARCH_ENGINE",
-		 "CATEGORY:MONITOR",
-		 "CATEGORY:PREVIEW"
+		    "CATEGORY:MONITOR",
+		    "CATEGORY:PREVIEW",
+        "STRIPE_WEBHOOK"
 		// Google, Bing, etc
         // Uncomment to allow these other common bot categories
         // See the full list at https://arcjet.com/bot-list
