@@ -94,6 +94,8 @@ model Course {
   duration    Int
   level       CourseLevel @default(Beginner)
 
+  stripePriceId String @unique
+
   category         String
   smallDescription String
   slug             String @unique
@@ -161,7 +163,7 @@ model Enrollment {
   updatedAt DateTime @updatedAt
   Course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId  String
-  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
   @@unique([userId, courseId])
