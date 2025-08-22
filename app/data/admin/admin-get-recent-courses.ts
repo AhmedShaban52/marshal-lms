@@ -3,7 +3,6 @@ import { prisma } from "@/lib/db";
 import { requireAdmin } from "./require-admin";
 
 export async function adminGetRecentCourses() {
-    await new Promise((resolve) => setTimeout(resolve, 2000))
 
   await requireAdmin();
 
